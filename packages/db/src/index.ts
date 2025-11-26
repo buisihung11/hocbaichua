@@ -1,6 +1,9 @@
+import { config } from "dotenv";
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 import { document, documentTypeEnum, space } from "./schema/space";
+
+config({ path: "../../apps/server/.env" }); // or .env.local
 
 const connectionString = process.env.DATABASE_URL;
 
