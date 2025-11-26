@@ -1,0 +1,17 @@
+{
+	"expo": {
+		"scheme": "hocbaichua",
+		"userInterfaceStyle": "automatic",
+		"orientation": "default",
+		"web": {
+			"bundler": "metro"
+		},
+		"name": "hocbaichua",
+		"slug": "hocbaichua",
+		"plugins": ["expo-font"],
+		"experiments": {
+			"typedRoutes": true,
+			"reactCompiler": true
+		}
+	}
+}
