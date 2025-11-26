@@ -33,17 +33,16 @@ export default function AIScreen() {
       fetch: expoFetch as unknown as typeof globalThis.fetch,
       api: generateAPIUrl("/ai"),
     }),
-    onError: (error) => console.error(error, "AI Chat Error"),
+    onError: (chatError) => console.error(chatError, "AI Chat Error"),
   });
   const scrollViewRef = useRef<ScrollView>(null);
   const mutedColor = useThemeColor("muted");
-  const accentColor = useThemeColor("accent");
   const foregroundColor = useThemeColor("foreground");
-  const dangerColor = useThemeColor("danger");
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: We want to scroll when messages change
   useEffect(() => {
     scrollViewRef.current?.scrollToEnd({ animated: true });
-  }, [messages]);
+  }, [messages.length]);
 
   const onSubmit = () => {
     const value = input.trim();

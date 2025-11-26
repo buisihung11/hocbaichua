@@ -33,8 +33,9 @@ const trpcClient = createTRPCClient<AppRouter>({
   links: [
     httpBatchLink({
       url: `${import.meta.env.VITE_SERVER_URL}/trpc`,
-      fetch(url, options) {
-        return fetch(url, {
+      // biome-ignore lint/nursery/noParametersOnlyUsedInRecursion: url is passed to fetch
+      fetch(requestUrl, options) {
+        return fetch(requestUrl, {
           ...options,
           credentials: "include",
         });
@@ -68,7 +69,7 @@ export const getRouter = () => {
 };
 
 declare module "@tanstack/react-router" {
-  interface Register {
+  type Register = {
     router: ReturnType<typeof getRouter>;
-  }
+  };
 }

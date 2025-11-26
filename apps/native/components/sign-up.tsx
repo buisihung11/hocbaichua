@@ -55,9 +55,7 @@ export function SignUp() {
   const [error, setError] = useState<string | null>(null);
 
   const mutedColor = useThemeColor("muted");
-  const accentColor = useThemeColor("accent");
   const foregroundColor = useThemeColor("foreground");
-  const dangerColor = useThemeColor("danger");
 
   function handlePress() {
     signUpHandler({

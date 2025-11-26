@@ -1,6 +1,6 @@
 import { expo } from "@better-auth/expo";
 import { db } from "@hocbaichua/db";
-import * as schema from "@hocbaichua/db/schema/auth";
+import { account, session, user } from "@hocbaichua/db/schema/auth";
 import { type BetterAuthOptions, betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 
@@ -8,7 +8,7 @@ export const auth = betterAuth<BetterAuthOptions>({
   database: drizzleAdapter(db, {
     provider: "pg",
 
-    schema,
+    schema: { user, session, account },
   }),
   trustedOrigins: [process.env.CORS_ORIGIN || "", "mybettertapp://", "exp://"],
   emailAndPassword: {

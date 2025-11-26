@@ -8,6 +8,16 @@ import { SignUp } from "@/components/sign-up";
 import { authClient } from "@/lib/auth-client";
 import { queryClient, trpc } from "@/utils/trpc";
 
+function getConnectionStatus(isLoading: boolean, isConnected: boolean): string {
+  if (isLoading) {
+    return "Checking connection...";
+  }
+  if (isConnected) {
+    return "Connected to API";
+  }
+  return "API Disconnected";
+}
+
 export default function Home() {
   const healthCheck = useQuery(trpc.healthCheck.queryOptions());
   const privateData = useQuery(trpc.privateData.queryOptions());
@@ -18,7 +28,6 @@ export default function Home() {
   const mutedColor = useThemeColor("muted");
   const successColor = useThemeColor("success");
   const dangerColor = useThemeColor("danger");
-  const foregroundColor = useThemeColor("foreground");
 
   return (
     <Container className="p-6">
@@ -68,11 +77,7 @@ export default function Home() {
                 TRPC Backend
               </Text>
               <Card.Description>
-                {isLoading
-                  ? "Checking connection..."
-                  : isConnected
-                    ? "Connected to API"
-                    : "API Disconnected"}
+                {getConnectionStatus(isLoading, isConnected)}
               </Card.Description>
             </View>
             {isLoading && (

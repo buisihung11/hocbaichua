@@ -6,6 +6,19 @@ export const Route = createFileRoute("/")({
   component: HomeComponent,
 });
 
+function getApiStatusText(
+  isLoading: boolean,
+  data: string | undefined
+): string {
+  if (isLoading) {
+    return "Checking...";
+  }
+  if (data) {
+    return "Connected";
+  }
+  return "Disconnected";
+}
+
 const TITLE_TEXT = `
  ██████╗ ███████╗████████╗████████╗███████╗██████╗
  ██╔══██╗██╔════╝╚══██╔══╝╚══██╔══╝██╔════╝██╔══██╗
@@ -37,11 +50,7 @@ function HomeComponent() {
               className={`h-2 w-2 rounded-full ${healthCheck.data ? "bg-green-500" : "bg-red-500"}`}
             />
             <span className="text-muted-foreground text-sm">
-              {healthCheck.isLoading
-                ? "Checking..."
-                : healthCheck.data
-                  ? "Connected"
-                  : "Disconnected"}
+              {getApiStatusText(healthCheck.isLoading, healthCheck.data)}
             </span>
           </div>
         </section>

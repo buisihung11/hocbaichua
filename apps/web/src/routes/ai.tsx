@@ -21,14 +21,17 @@ function RouteComponent() {
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: We want to scroll when messages change
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  }, [messages.length]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const text = input.trim();
-    if (!text) return;
+    if (!text) {
+      return;
+    }
     sendMessage({ text });
     setInput("");
   };
@@ -55,7 +58,11 @@ function RouteComponent() {
               </p>
               {message.parts?.map((part, index) => {
                 if (part.type === "text") {
-                  return <Response key={index}>{part.text}</Response>;
+                  return (
+                    <Response key={`${message.id}-${part.type}-${index}`}>
+                      {part.text}
+                    </Response>
+                  );
                 }
                 return null;
               })}

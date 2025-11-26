@@ -17,9 +17,7 @@ function SignIn() {
   const [error, setError] = useState<string | null>(null);
 
   const mutedColor = useThemeColor("muted");
-  const accentColor = useThemeColor("accent");
   const foregroundColor = useThemeColor("foreground");
-  const dangerColor = useThemeColor("danger");
 
   async function handleLogin() {
     setIsLoading(true);
@@ -31,8 +29,8 @@ function SignIn() {
         password,
       },
       {
-        onError(error) {
-          setError(error.error?.message || "Failed to sign in");
+        onError(signInError) {
+          setError(signInError.error?.message || "Failed to sign in");
           setIsLoading(false);
         },
         onSuccess() {
