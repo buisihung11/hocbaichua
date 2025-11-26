@@ -1,11 +1,25 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "ui": "tui",
+  "globalDependencies": ["**/.env"],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": ["dist/**"]
+      "outputs": ["dist/**"],
+      "passThroughEnv": [
+        "BETTER_AUTH_SECRET",
+        "BETTER_AUTH_URL",
+        "POLAR_SUCCESS_URL",
+        "CORS_ORIGIN",
+        "GOOGLE_GENERATIVE_AI_API_KEY",
+        "DATABASE_URL",
+        "DATABASE_DIRECT_URL",
+        "R2_ENDPOINT",
+        "R2_ACCESS_KEY_ID",
+        "R2_SECRET_ACCESS_KEY",
+        "R2_BUCKET_NAME"
+      ]
     },
     "lint": {
       "dependsOn": ["^lint"]
